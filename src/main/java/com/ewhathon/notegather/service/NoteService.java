@@ -50,4 +50,8 @@ public class NoteService {
 
         return noteListResponseDtos;
     }
+
+    public NoteResponseDto getNote(Long noteId) throws Exception{
+        return new NoteResponseDto(noteRepository.findById(noteId).orElseThrow(()-> new Exception("노트를 찾을 수 없습니다.")));
+    }
 }
