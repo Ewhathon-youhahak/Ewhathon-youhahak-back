@@ -42,6 +42,7 @@ public class NoteController {
 
     @GetMapping("/notes/student")
     public List<NoteListResponseDto> getNotesByStudent(Authentication authentication){
+        String userEmail = authentication.getName(); // auth test
         return noteService.getStudentNotes(authentication.getName());
     }
 
