@@ -25,9 +25,6 @@ public class Lecture {
     @Column(name="lecture_professor", nullable = false)
     private String professor;
 
-    @Column(name="lecture_semester", nullable = false)
-    private String semester;
-
     @OneToMany(mappedBy = "lecture")
     @JsonIgnore
     private List<Note> note;
