@@ -8,11 +8,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NoteResponseDto {
+public class NoteListResponseDto {
     private Long id;
     private String title;
-    private String content;
-    private LocalDateTime createdDate;
     private String lectureName;
     private String professorName;
 }
