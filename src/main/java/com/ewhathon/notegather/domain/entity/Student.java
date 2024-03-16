@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -29,6 +30,9 @@ public class Student {
     @Column(name="student_password", nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+
     @OneToMany(mappedBy = "student")
     @JsonIgnore
     private List<Note> note;
@@ -38,5 +42,6 @@ public class Student {
         this.email = email;
         this.nickname = nickname;
         this.password = password;
+        this.userRole = Objects.requireNonNullElse(userRole, userRole.ROLE_USER); //값이 없다면, ROLE_USER로 초기화
     }
 }
