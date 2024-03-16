@@ -16,7 +16,7 @@ public class StudentService {
 
     @Autowired
     public StudentService(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+        this.studentRepository = studentRepository;}
 
     public StudentResponseDto getStudent(String name){
         Student student = studentRepository.findStudentByEmail(name);

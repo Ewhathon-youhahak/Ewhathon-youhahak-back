@@ -11,7 +11,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Table(name = "NOTE_TB")
 public class Note {
     @Id
