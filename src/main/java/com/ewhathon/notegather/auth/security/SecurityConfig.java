@@ -79,10 +79,15 @@ public class SecurityConfig {
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //세션을 생성하지 않음->토큰 기반 인증 필요
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtTokenProvider()))  //사용자 인증
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(),  jwtTokenProvider(), authDetailService)) //사용자 권한 부여
-                .authorizeHttpRequests(request -> request
+                .authorizeHttpRequests(requests -> requests
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                        .anyRequest().permitAll()	//개발 환경: 모든 종류의 요청에 인증 불필요
+                        .requestMatchers("/signup", "/login").permitAll() // 회원가입 및 로그인 경로는 인증 생략
+                        .anyRequest().authenticated() // 그 외 모든 요청에 대해 인증 필요
                 );
+//                .authorizeHttpRequests(request -> request
+//                        .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+//                        .anyRequest().permitAll()	//개발 환경: 모든 종류의 요청에 인증 불필요
+//                );
         return httpSecurity.build();
     }
 }
