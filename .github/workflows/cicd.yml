@@ -4,7 +4,7 @@ name: CI/CD
 # 2 워크플로가 시작될 조건 지정
 on:
   push:
-    branches: [ feat/deploy ]
+    branches: [ main ]
   pull_request:
     branches: [ main ] # main 브랜치로의 PR에 대해 실행
 
