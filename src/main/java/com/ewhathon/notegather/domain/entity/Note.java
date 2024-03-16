@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -41,5 +43,13 @@ public class Note {
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
+    }
+
+    public void setLectureName(String lectureName){
+        this.lecture.setName(lectureName);
+    }
+
+    public void setProfessorName(String professorName){
+        this.lecture.setProfessor(professorName);
     }
 }
