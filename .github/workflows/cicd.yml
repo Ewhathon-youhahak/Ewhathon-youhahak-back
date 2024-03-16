@@ -49,7 +49,7 @@ jobs:
           OPENAI_API: ${{ secrets.OPENAI_API }}
 
       # Docker 이미지 빌드 및 Google Container Registry(GCR)에 푸시
-      # 아피택트 레지스트리에서 직접 계정을 추가
+      # artifact registry 관리자 IAM role 추가 필요
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
