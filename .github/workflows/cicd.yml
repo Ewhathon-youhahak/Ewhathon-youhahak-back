@@ -71,6 +71,7 @@ jobs:
             JAR_FILE=build/libs/*.jar
 
       # Google Cloud Run에 배포
+      # 서비스 계정에 권한 필요
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v0.5.0
         with:
