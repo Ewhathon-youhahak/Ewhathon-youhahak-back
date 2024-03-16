@@ -7,9 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "NOTE_TB")
@@ -43,5 +45,13 @@ public class Note {
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
+    }
+
+    public void setLectureName(String lectureName){
+        this.lecture.setName(lectureName);
+    }
+
+    public void setProfessorName(String professorName){
+        this.lecture.setProfessor(professorName);
     }
 }
