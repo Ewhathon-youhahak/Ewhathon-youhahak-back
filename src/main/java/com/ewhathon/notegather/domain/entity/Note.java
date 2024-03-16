@@ -30,7 +30,7 @@ public class Note {
     @Column(name="note_title", nullable = false)
     private String title;
 
-    @Column(name="note_content", nullable = false)
+    @Column(name="note_content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @Column(name="note_created_date")
