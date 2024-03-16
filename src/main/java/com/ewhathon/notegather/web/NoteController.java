@@ -6,7 +6,9 @@ import com.ewhathon.notegather.web.dto.NoteRequestDto;
 import com.ewhathon.notegather.web.dto.NoteResponseDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +21,7 @@ public class NoteController {
     private final NoteService noteService;
 
     @PostMapping("/notes")
-    public NoteResponseDto createNote(@RequestBody NoteRequestDto noteRequestDto){
+    public Long createNote(@RequestBody NoteRequestDto noteRequestDto){
         return noteService.createNote(noteRequestDto);
     }
 
@@ -31,5 +33,15 @@ public class NoteController {
     @GetMapping("/notes/{noteId}")
     public NoteResponseDto getNote(@PathVariable("noteId") Long noteId) throws Exception{
         return noteService.getNote(noteId);
+    }
+
+    @PatchMapping("notes/{noteId}")
+    public Long editNote(@PathVariable("noteId") Long noteId, @RequestBody NoteRequestDto requestDto) throws Exception{
+        return noteService.editNote(noteId, requestDto);
+    }
+
+    @DeleteMapping("notes/{noteId}")
+    public void deleteNote(@PathVariable("noteId") Long noteId){
+        noteService.deleteNote(noteId);
     }
 }

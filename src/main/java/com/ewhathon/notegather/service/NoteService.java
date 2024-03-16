@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +21,8 @@ public class NoteService {
     private final NoteRepository noteRepository;
     private final LectureRepository lectureRepository;
 
-    public NoteResponseDto createNote(NoteRequestDto noteRequestDto){
+    @Transactional
+    public Long createNote(NoteRequestDto noteRequestDto){
         Optional<Lecture> lecture = lectureRepository.findLectureByNameAndProfessor(noteRequestDto.getLectureName(),noteRequestDto.getProfessorName());
         if(lecture.isEmpty()){
             lecture = Optional.ofNullable(Lecture.builder()
@@ -39,7 +41,7 @@ public class NoteService {
 
         noteRepository.save(note);
 
-        return new NoteResponseDto(note.getId(),note.getTitle(), note.getContent(), note.getCreatedDate(), note.getLecture().getName(), note.getLecture().getProfessor());
+        return note.getId();
     }
 
     public List<NoteListResponseDto> getNotes(){
@@ -53,5 +55,32 @@ public class NoteService {
 
     public NoteResponseDto getNote(Long noteId) throws Exception{
         return new NoteResponseDto(noteRepository.findById(noteId).orElseThrow(()-> new Exception("노트를 찾을 수 없습니다.")));
+    }
+
+    @Transactional
+    public Long editNote(Long noteId, NoteRequestDto requestDto) throws Exception{
+        Note note = noteRepository.findById(noteId)
+                .orElseThrow(()-> new NullPointerException("노트를 찾을 수 없습니다."));
+
+        if(requestDto.getTitle() != null){
+            note.setTitle(requestDto.getTitle());
+        }
+        if(requestDto.getContent() != null){
+            note.setContent(requestDto.getContent());
+        }
+        if(requestDto.getLectureName() != null){
+            note.setLectureName(requestDto.getLectureName());
+        }
+        if(requestDto.getProfessorName() != null){
+            note.setProfessorName(requestDto.getProfessorName());
+        }
+
+        noteRepository.save(note);
+
+        return noteId;
+    }
+
+    public void deleteNote(Long noteId){
+        noteRepository.deleteById(noteId);
     }
 }
