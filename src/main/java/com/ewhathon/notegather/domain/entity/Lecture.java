@@ -3,6 +3,7 @@ package com.ewhathon.notegather.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,4 +29,10 @@ public class Lecture {
     @OneToMany(mappedBy = "lecture")
     @JsonIgnore
     private List<Note> note;
+
+    @Builder
+    public Lecture(String name, String professor){
+        this.name = name;
+        this.professor = professor;
+    }
 }
