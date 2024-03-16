@@ -4,6 +4,8 @@ spring:
     username: root # default
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
   # hibernate
   jpa:
     show-sql: true
