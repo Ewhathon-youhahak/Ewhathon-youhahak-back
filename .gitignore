@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### GCP key file ###
+ewhathon-youhahak-bdffc1c25e71.json

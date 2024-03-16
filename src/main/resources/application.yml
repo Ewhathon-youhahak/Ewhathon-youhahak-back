@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: root # default
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  # hibernate
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+# GCP Cloud Storage
+storage:
+  bucket: ewhathon-youhahak-storage
+  project-id: EWHATHON-YOUHAHAK
