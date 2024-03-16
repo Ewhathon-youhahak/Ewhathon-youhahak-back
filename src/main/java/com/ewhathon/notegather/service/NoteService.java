@@ -1,5 +1,4 @@
 package com.ewhathon.notegather.service;
-
 import com.ewhathon.notegather.domain.entity.Lecture;
 import com.ewhathon.notegather.domain.entity.Note;
 import com.ewhathon.notegather.domain.entity.Student;
@@ -13,13 +12,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class NoteService {
+
+    @Autowired
     private final NoteRepository noteRepository;
     private final LectureRepository lectureRepository;
     private final StudentRepository studentRepository;
@@ -50,13 +53,26 @@ public class NoteService {
         return note.getId();
     }
 
-    public List<NoteListResponseDto> getNotes(){
-        List<NoteListResponseDto> noteListResponseDtos = new ArrayList<>();
-        for(Note note : noteRepository.findAll()){
-            noteListResponseDtos.add(new NoteListResponseDto(note.getId(), note.getTitle(), note.getLecture().getName(), note.getLecture().getProfessor()));
-        }
+    public List<NoteListResponseDto> getAllNotes(){
+        List<Note> notes = noteRepository.findAll();
 
-        return noteListResponseDtos;
+        return notes.stream()
+                .map(note -> new NoteListResponseDto(note.getId(), note.getTitle(), note.getLecture().getName(), note.getLecture().getProfessor()))
+                .collect(Collectors.toList());
+    }
+
+    public List<NoteListResponseDto> searchNotes(String type, String keyword){
+        List<Note> notes;
+        if(type.equals("lecture")){
+            notes =  noteRepository.findNotesByLecture_NameContaining(keyword);
+        }else if(type.equals("professor")){
+            notes = noteRepository.findNotesByLecture_ProfessorContaining(keyword);
+        }else{
+            throw new IllegalArgumentException("Invalid search type: " + type);
+        }
+        return notes.stream()
+                .map(note -> new NoteListResponseDto(note.getId(), note.getTitle(), note.getLecture().getName(), note.getLecture().getProfessor()))
+                .collect(Collectors.toList());
     }
 
     public NoteResponseDto getNote(Long noteId) throws Exception{
@@ -86,7 +102,12 @@ public class NoteService {
         return noteId;
     }
 
-    public void deleteNote(Long noteId){
+    public String deleteNote(Long noteId){
         noteRepository.deleteById(noteId);
+
+        if(noteRepository.findById(noteId).isEmpty()){
+            return "success";
+        }
+        return "fail";
     }
 }
