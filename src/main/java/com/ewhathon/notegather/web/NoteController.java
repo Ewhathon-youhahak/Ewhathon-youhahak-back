@@ -40,6 +40,11 @@ public class NoteController {
         }
     }
 
+    @GetMapping("/notes/student")
+    public List<NoteListResponseDto> getNotesByStudent(Authentication authentication){
+        return noteService.getStudentNotes(authentication.getName());
+    }
+
     @GetMapping("/notes/{noteId}")
     public NoteResponseDto getNote(Authentication authentication, @PathVariable("noteId") Long noteId) throws Exception{
         return noteService.getNote(noteId);
