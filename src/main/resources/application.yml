@@ -28,3 +28,9 @@ openai:
 # JWT
 jwt:
   secret: ${JWT_TOKEN}
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        web: DEBUG
