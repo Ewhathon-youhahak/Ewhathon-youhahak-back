@@ -2,8 +2,10 @@ package com.ewhathon.notegather.service;
 
 import com.ewhathon.notegather.domain.entity.Lecture;
 import com.ewhathon.notegather.domain.entity.Note;
+import com.ewhathon.notegather.domain.entity.Student;
 import com.ewhathon.notegather.domain.repository.LectureRepository;
 import com.ewhathon.notegather.domain.repository.NoteRepository;
+import com.ewhathon.notegather.domain.repository.StudentRepository;
 import com.ewhathon.notegather.web.dto.NoteListResponseDto;
 import com.ewhathon.notegather.web.dto.NoteRequestDto;
 import com.ewhathon.notegather.web.dto.NoteResponseDto;
@@ -20,10 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class NoteService {
     private final NoteRepository noteRepository;
     private final LectureRepository lectureRepository;
+    private final StudentRepository studentRepository;
 
     @Transactional
-    public Long createNote(NoteRequestDto noteRequestDto){
+    public Long createNote(NoteRequestDto noteRequestDto, String email){
         Optional<Lecture> lecture = lectureRepository.findLectureByNameAndProfessor(noteRequestDto.getLectureName(),noteRequestDto.getProfessorName());
+        Student student = studentRepository.findStudentByEmail(email);
+
         if(lecture.isEmpty()){
             lecture = Optional.ofNullable(Lecture.builder()
                     .name(noteRequestDto.getLectureName())
@@ -36,6 +41,7 @@ public class NoteService {
                 .title(noteRequestDto.getTitle())
                 .content(noteRequestDto.getContent())
                 .lecture(lecture.get())
+                .student(student)
                 .createdDate(LocalDateTime.now())
                 .build();
 
