@@ -75,6 +75,14 @@ public class NoteService {
                 .collect(Collectors.toList());
     }
 
+    public List<NoteListResponseDto> getStudentNotes(String email){
+        Student student = studentRepository.findStudentByEmail(email);
+        List<Note> notes = noteRepository.findNotesByStudent_Id(student.getId());
+        return notes.stream()
+                .map(note -> new NoteListResponseDto(note.getId(), note.getTitle(), note.getLecture().getName(), note.getLecture().getProfessor()))
+                .collect(Collectors.toList());
+    }
+
     public NoteResponseDto getNote(Long noteId) throws Exception{
         return new NoteResponseDto(noteRepository.findById(noteId).orElseThrow(()-> new Exception("노트를 찾을 수 없습니다.")));
     }

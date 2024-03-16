@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Objects;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "STUDENT_TB")
