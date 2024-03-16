@@ -12,14 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class NoteService {
     private final NoteRepository noteRepository;
     private final LectureRepository lectureRepository;
 
+    @Autowired
+    public NoteService(NoteRepository noteRepository, LectureRepository lectureRepository) {
+        this.noteRepository = noteRepository;
+        this.lectureRepository = lectureRepository;
+    }
     public NoteResponseDto createNote(NoteRequestDto noteRequestDto){
         Optional<Lecture> lecture = lectureRepository.findLectureByNameAndProfessor(noteRequestDto.getLectureName(),noteRequestDto.getProfessorName());
         if(lecture.isEmpty()){
