@@ -12,8 +12,4 @@ import org.springframework.web.bind.annotation.RestController;
 public class StudentController {
     private final StudentService studentService;
 
-    @PostMapping("/students")
-    public Long createStudent(@RequestBody StudentRequestDto studentRequestDto){
-        return studentService.join(studentRequestDto);
-    }
 }
