@@ -7,6 +7,7 @@ import com.ewhathon.notegather.web.dto.QuizResponseDto;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -21,15 +22,15 @@ import java.util.regex.Pattern;
 import java.util.HashMap;
 
 @Service
-@RequiredArgsConstructor
 public class GptService {
     private final WebClient webClient;
     private final NoteRepository noteRepository;
-
     @Value("${openai.api.key}")
     private String apiKey;
 
-    public GptService(WebClient.Builder webClientBuilder, NoteRepository noteRepository) {
+    @Autowired
+    public GptService(@Value("${openai.api.key}") String apiKey, WebClient.Builder webClientBuilder, NoteRepository noteRepository) {
+        this.apiKey = apiKey;
         this.webClient = webClientBuilder.baseUrl("https://api.openai.com/v1/chat").build();
         this.noteRepository = noteRepository;
     }
