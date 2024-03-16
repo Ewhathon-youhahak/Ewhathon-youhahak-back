@@ -76,5 +76,5 @@ jobs:
         with:
           service: notegather
           image: asia-northeast3-docker.pkg.dev/ewhathon-youhahak/youhahak-artifact-registry/notegather:latest
-          region: REGION
+          region: asia-northeast3
           #credentials: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
