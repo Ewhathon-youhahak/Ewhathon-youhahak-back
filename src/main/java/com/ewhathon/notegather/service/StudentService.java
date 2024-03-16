@@ -6,13 +6,17 @@ import com.ewhathon.notegather.web.dto.StudentRequestDto;
 import com.ewhathon.notegather.web.dto.StudentResponseDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository studentRepository;
+
+    @Autowired
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
 
     public StudentResponseDto getStudent(String name){
         Student student = studentRepository.findStudentByEmail(name);

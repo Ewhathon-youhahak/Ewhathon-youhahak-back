@@ -19,16 +19,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class NoteService {
 
-    @Autowired
     private final NoteRepository noteRepository;
     private final LectureRepository lectureRepository;
     private final StudentRepository studentRepository;
 
+    @Autowired
+    public NoteService(NoteRepository noteRepository, LectureRepository lectureRepository, StudentRepository studentRepository) {
+        this.noteRepository = noteRepository;
+        this.lectureRepository = lectureRepository;
+        this.studentRepository = studentRepository;
+    }
+
     @Transactional
     public Long createNote(NoteRequestDto noteRequestDto, String email){
+
         Optional<Lecture> lecture = lectureRepository.findLectureByNameAndProfessor(noteRequestDto.getLectureName(),noteRequestDto.getProfessorName());
         Student student = studentRepository.findStudentByEmail(email);
 
