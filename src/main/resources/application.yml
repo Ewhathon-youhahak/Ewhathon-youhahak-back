@@ -28,7 +28,6 @@ openai:
 # JWT
 jwt:
   secret: ${JWT_TOKEN}
-<<<<<<< HEAD
 
 # encoding
 server:
