@@ -6,7 +6,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 75
-
   # hibernate
   jpa:
     show-sql: true
@@ -29,3 +28,11 @@ openai:
 # JWT
 jwt:
   secret: ${JWT_TOKEN}
+
+# encoding
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
