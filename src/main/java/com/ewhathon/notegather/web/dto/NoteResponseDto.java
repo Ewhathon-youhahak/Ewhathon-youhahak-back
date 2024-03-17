@@ -17,6 +17,7 @@ public class NoteResponseDto {
     private LocalDateTime createdDate;
     private String lectureName;
     private String professorName;
+    private String studentName;
 
     @Builder
     public NoteResponseDto(Note note){
@@ -26,5 +27,6 @@ public class NoteResponseDto {
         this.createdDate = note.getCreatedDate();
         this.lectureName = note.getLecture().getName();
         this.professorName = note.getLecture().getProfessor();
+        this.studentName = note.getStudent().getNickname();
     }
 }
