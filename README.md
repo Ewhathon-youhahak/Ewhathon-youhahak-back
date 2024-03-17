@@ -1,6 +1,6 @@
 # NOTEGATHER
 
-![image](https://github.com/Ewhathon-youhahak/Ewhathon-youhahak-back/assets/67725652/3b8f2f94-730d-4121-a8d7-b64712602b2f)
+![image](https://github.com/Ewhathon-youhahak/Ewhathon-youhahak-back/assets/67725652/5810374a-ef56-450f-b080-9f535357b9c6)
 
 
 ## **서비스 소개**
@@ -106,3 +106,5 @@
 
 
 ## 데모 영상 링크
+
+https://www.youtube.com/watch?v=O9Y7png3yps&feature=youtu.be
